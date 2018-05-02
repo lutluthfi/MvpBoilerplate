@@ -2,7 +2,7 @@
 
 This is personal boilerplate. Maybe I'll think to renew for anyone who needs
 
-# How to use
+# Getting Started
 
 Add this code to your build.gradle project allprojects block.
 
