@@ -17,7 +17,7 @@ import android.widget.RelativeLayout;
 
 import butterknife.Unbinder;
 
-public abstract class PlateBaseDialog extends DialogFragment implements IPlateDialogView {
+public abstract class PlateBaseDialog extends DialogFragment implements IPlateBaseView {
 
     private PlateBaseActivity mActivity;
     private Unbinder mUnBinder;
@@ -40,7 +40,7 @@ public abstract class PlateBaseDialog extends DialogFragment implements IPlateDi
         return dialog;
     }
 
-    public void show (FragmentManager fm, String tag) {
+    public void show(FragmentManager fm, String tag) {
         FragmentTransaction ft = fm.beginTransaction();
         Fragment prevFragment = fm.findFragmentByTag(tag);
         if (prevFragment != null) ft.remove(prevFragment);
@@ -59,7 +59,6 @@ public abstract class PlateBaseDialog extends DialogFragment implements IPlateDi
         super.onAttach(context);
         if (context instanceof PlateBaseActivity) {
             this.mActivity = (PlateBaseActivity) context;
-            this.mActivity.onFragmentAttached();
         }
     }
 
@@ -78,12 +77,6 @@ public abstract class PlateBaseDialog extends DialogFragment implements IPlateDi
     }
 
     @Override
-    public void dismissDialog(String tag) {
-        dismiss();
-        getBaseActivity().onFragmentDetached(tag);
-    }
-
-    @Override
     public void showLoading() {
         if (mActivity != null) mActivity.showLoading();
     }
@@ -95,18 +88,12 @@ public abstract class PlateBaseDialog extends DialogFragment implements IPlateDi
 
     @Override
     public boolean isLoading() {
-        if (mActivity != null) {
-            mActivity.isLoading();
-        }
-        return false;
+        return mActivity != null && mActivity.isLoading();
     }
 
     @Override
     public boolean isNetworkConnected() {
-        if (mActivity != null) {
-            return mActivity.isNetworkConnected();
-        }
-        return false;
+        return mActivity != null && mActivity.isNetworkConnected();
     }
 
     @Override

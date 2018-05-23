@@ -35,15 +35,9 @@ public final class CommonUtils {
         return progressDialog;
     }
 
-    public static boolean isEmailValid(String email) {
-        final String EMAIL_PATTERN = "^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@"
-                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        return Pattern.compile(EMAIL_PATTERN).matcher(email).matches();
-    }
-
-    // Shows  "Monday, October 8, 2012"
+    // Shows  "Monday, 8 October 2012"
     public static String getTimeStamp() {
-        return new SimpleDateFormat("EEEE, MMMM d, yyyy", Locale.US).format(new Date());
+        return new SimpleDateFormat("EEEE, d MMMM yyyy", Locale.US).format(new Date());
     }
 
     @SuppressLint("HardwareIds")

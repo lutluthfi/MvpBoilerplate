@@ -1,4 +1,4 @@
-package com.arsldev.lutluthfi.mvpboilerplate.di;
+package com.arsldev.lutluthfi.mvpboilerplate.injection;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -6,5 +6,5 @@ import java.lang.annotation.RetentionPolicy;
 import javax.inject.Qualifier;
 
 @Qualifier @Retention(RetentionPolicy.RUNTIME)
-public @interface ActivityContext {
+public @interface PreferenceInfo {
 }

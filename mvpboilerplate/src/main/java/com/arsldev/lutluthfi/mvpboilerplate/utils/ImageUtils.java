@@ -14,4 +14,6 @@ public final class ImageUtils {
     public static void loadImage(Context context, String path, ImageView holder) {
         Glide.with(context).load(path).asBitmap().centerCrop().into(holder);
     }
+
+    // TODO : not provide for custom target
 }

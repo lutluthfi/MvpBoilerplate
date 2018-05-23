@@ -17,7 +17,7 @@ import com.arsldev.lutluthfi.mvpboilerplate.utils.NetworkUtils;
 
 import butterknife.Unbinder;
 
-public abstract class PlateBaseActivity extends AppCompatActivity implements IPlateBaseView, PlateBaseFragment.Callback {
+public abstract class PlateBaseActivity extends AppCompatActivity implements IPlateBaseView {
 
     private ProgressDialog mProgressDialog;
     private Unbinder mUnbinder;
@@ -117,15 +117,5 @@ public abstract class PlateBaseActivity extends AppCompatActivity implements IPl
     @Override
     public boolean isNetworkConnected() {
         return NetworkUtils.isNetworkConnected(this);
-    }
-
-    @Override
-    public void onFragmentAttached() {
-
-    }
-
-    @Override
-    public void onFragmentDetached(String tag) {
-
     }
 }
