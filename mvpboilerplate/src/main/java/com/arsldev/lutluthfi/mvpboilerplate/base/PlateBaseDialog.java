@@ -1,6 +1,7 @@
 package com.arsldev.lutluthfi.mvpboilerplate.base;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -11,25 +12,39 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.arsldev.lutluthfi.mvpboilerplate.R;
+import com.arsldev.lutluthfi.mvpboilerplate.utils.CommonUtils;
+import com.arsldev.lutluthfi.mvpboilerplate.utils.KeyboardUtils;
+import com.arsldev.lutluthfi.mvpboilerplate.utils.NetworkUtils;
 
 import butterknife.Unbinder;
 
 public abstract class PlateBaseDialog extends DialogFragment implements IPlateBaseView {
 
-    private PlateBaseActivity mActivity;
+    private Context mContext;
+    private ProgressDialog mProgressDialog;
     private Unbinder mUnBinder;
 
     protected abstract void setupView(View view);
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (mContext == null) mContext = getActivity() != null ? getActivity() : getContext();
+    }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final RelativeLayout root = new RelativeLayout(getActivity());
         root.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        final Dialog dialog = new Dialog(getBaseActivity());
+        final Dialog dialog = new Dialog(mContext);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         if (dialog.getWindow() != null) {
@@ -55,21 +70,13 @@ public abstract class PlateBaseDialog extends DialogFragment implements IPlateBa
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof PlateBaseActivity) {
-            this.mActivity = (PlateBaseActivity) context;
-        }
-    }
-
-    @Override
     public void onDestroy() {
         if (mUnBinder != null) mUnBinder.unbind();
         super.onDestroy();
     }
 
-    public PlateBaseActivity getBaseActivity() {
-        return mActivity;
+    public Context getPlateContext() {
+        return mContext;
     }
 
     public void setUnBinder(Unbinder unBinder) {
@@ -78,66 +85,71 @@ public abstract class PlateBaseDialog extends DialogFragment implements IPlateBa
 
     @Override
     public void showLoading() {
-        if (mActivity != null) mActivity.showLoading();
+        hideLoading();
+        mProgressDialog = CommonUtils.showLoadingDialog(this.getContext());
     }
 
     @Override
     public void hideLoading() {
-        if (mActivity != null) mActivity.hideLoading();
+        if (mProgressDialog != null && mProgressDialog.isShowing()) mProgressDialog.cancel();
     }
 
     @Override
     public boolean isLoading() {
-        return mActivity != null && mActivity.isLoading();
+        return mProgressDialog.isShowing();
     }
 
     @Override
     public boolean isNetworkConnected() {
-        return mActivity != null && mActivity.isNetworkConnected();
+        return NetworkUtils.isNetworkConnected(mContext);
     }
 
     @Override
     public void hideKeyboard() {
-        if (mActivity != null) mActivity.hideKeyboard();
+        KeyboardUtils.hideSoftInput((PlateBaseActivity) mContext);
     }
 
     @Override
     public void onError(String message) {
-        if (mActivity != null) mActivity.onError(message);
+        ((PlateBaseActivity) mContext).onError(message);
     }
 
     @Override
     public void onError(int resId) {
-        if (mActivity != null) mActivity.onError(resId);
+        ((PlateBaseActivity) mContext).onError(resId);
     }
 
     @Override
     public void showMessage(String message) {
-        if (mActivity != null) mActivity.showMessage(message);
+        if (message != null) {
+            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(mContext, getString(R.string.error_general), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void showMessage(int resId) {
-        if (mActivity != null) mActivity.showMessage(resId);
+        showMessage(getString(resId));
     }
 
     @Override
     public void printLog(String tag, String message) {
-        if (mActivity != null) mActivity.printLog(tag, message);
+        Log.d(tag, message);
     }
 
     @Override
     public void printLog(String tag, int resId) {
-        if (mActivity != null) mActivity.printLog(tag, resId);
+        Log.d(tag, getString(resId));
     }
 
     @Override
     public void printLog(String tag, String message, Throwable tr) {
-        if (mActivity != null) mActivity.printLog(tag, message, tr);
+        Log.e(tag, message, tr);
     }
 
     @Override
     public void printLog(String tag, int resId, Throwable tr) {
-        if (mActivity != null) mActivity.printLog(tag, resId, tr);
+        Log.e(tag, getString(resId), tr);
     }
 }

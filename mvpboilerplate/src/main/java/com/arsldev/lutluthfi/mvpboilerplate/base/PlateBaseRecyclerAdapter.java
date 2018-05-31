@@ -11,36 +11,36 @@ public abstract class PlateBaseRecyclerAdapter<T, VH extends PlateBaseRecyclerAd
         void onItemClickListener(View view, T item, int position);
     }
 
+    private static OnItemClickListener sListener;
     private int mPageIndex = 1;
     private List<T> mItems;
-    private OnItemClickListener mListener;
 
     public PlateBaseRecyclerAdapter() {
         mItems = new ArrayList<>();
     }
 
-    protected void setOnClickListener(OnItemClickListener mListener) {
-        this.mListener = mListener;
+    public void setOnClickListener(OnItemClickListener listener) {
+        sListener = listener;
     }
 
-    protected void setItems(List<T> mItems) {
+    public void setItems(List<T> mItems) {
         if (mItems != null) this.mItems = mItems;
         notifyDataSetChanged();
     }
 
-    protected void setItems(T item, int index) {
+    public void setItems(T item, int index) {
         if (this.mItems != null && this.mItems.size() > index) {
             this.mItems.set(index, item);
             notifyItemChanged(index);
         }
     }
 
-    protected T getItem(int position) {
+    public T getItem(int position) {
         if (this.mItems != null && this.mItems.size() > position) return this.mItems.get(position);
         else return null;
     }
 
-    protected void removeItem(int index) {
+    public void removeItem(int index) {
         if (this.mItems != null && this.mItems.size() > index) {
             this.mItems.remove(index);
             notifyItemRemoved(index);
@@ -48,24 +48,24 @@ public abstract class PlateBaseRecyclerAdapter<T, VH extends PlateBaseRecyclerAd
         }
     }
 
-    protected void clear() {
+    public void clear() {
         if (this.mItems != null) {
             this.mItems.clear();
             notifyDataSetChanged();
         }
     }
 
-    protected void addItems(List<T> mItems, int mPageIndex) {
+    public void addItems(List<T> mItems, int mPageIndex) {
         this.mPageIndex = mPageIndex;
         this.mItems.addAll(mItems);
         notifyItemInserted(this.mItems.size());
     }
 
-    protected int getPageIndex() {
+    public int getPageIndex() {
         return mPageIndex;
     }
 
-    protected List<T> getItems() {
+    public List<T> getItems() {
         return mItems;
     }
 
@@ -74,9 +74,9 @@ public abstract class PlateBaseRecyclerAdapter<T, VH extends PlateBaseRecyclerAd
         return mItems.size();
     }
 
-    public abstract class PlateBaseViewHolder<I> extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static abstract class PlateBaseViewHolder<T> extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private I mItem;
+        private T mItem;
         private int mCurrentPosition;
 
         public PlateBaseViewHolder(View itemView) {
@@ -84,8 +84,8 @@ public abstract class PlateBaseRecyclerAdapter<T, VH extends PlateBaseRecyclerAd
             itemView.setOnClickListener(this);
         }
 
-        protected void onBind(int mCurrentPosition){
-            this.mCurrentPosition = mCurrentPosition;
+        protected void onBind(int position){
+            this.mCurrentPosition = position;
         }
 
         protected int getCurrentPosition() {
@@ -94,9 +94,8 @@ public abstract class PlateBaseRecyclerAdapter<T, VH extends PlateBaseRecyclerAd
 
         @SuppressWarnings("unchecked") @Override
         public void onClick(View v) {
-            if (mListener != null) {
-                mListener.onItemClickListener(this.itemView, this.mItem, getAdapterPosition());
-                notifyDataSetChanged();
+            if (sListener != null) {
+                sListener.onItemClickListener(this.itemView, mItem, getAdapterPosition());
             }
         }
     }

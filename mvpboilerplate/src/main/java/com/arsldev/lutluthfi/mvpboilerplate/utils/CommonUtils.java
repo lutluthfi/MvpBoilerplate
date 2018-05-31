@@ -6,17 +6,24 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.provider.Settings;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
+import android.support.design.widget.BottomNavigationView;
+import android.util.Log;
 
 import com.arsldev.lutluthfi.mvpboilerplate.R;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
 public final class CommonUtils {
+
+    private static final String TAG = CommonUtils.class.getSimpleName();
 
     private CommonUtils() {
         // This utility class is not publicly instantiable
@@ -33,6 +40,24 @@ public final class CommonUtils {
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         return progressDialog;
+    }
+
+    @SuppressLint("RestrictedApi")
+    public static void shiftingBottomNavigation(BottomNavigationView navigation) {
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
+        try {
+            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+            shiftingMode.setAccessible(true);
+            shiftingMode.setBoolean(menuView, false);
+            shiftingMode.setAccessible(false);
+            for (int i = 0; i < menuView.getChildCount(); i++) {
+                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+                item.setShiftingMode(false);
+                item.setChecked(item.getItemData().isChecked());
+            }
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            Log.e(TAG, "Unable to get shift mode field", e);
+        }
     }
 
     // Shows  "Monday, 8 October 2012"

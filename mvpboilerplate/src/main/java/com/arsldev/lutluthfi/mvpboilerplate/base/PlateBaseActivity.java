@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.arsldev.lutluthfi.mvpboilerplate.R;
 import com.arsldev.lutluthfi.mvpboilerplate.utils.CommonUtils;
+import com.arsldev.lutluthfi.mvpboilerplate.utils.KeyboardUtils;
 import com.arsldev.lutluthfi.mvpboilerplate.utils.NetworkUtils;
 
 import butterknife.Unbinder;
@@ -49,15 +50,6 @@ public abstract class PlateBaseActivity extends AppCompatActivity implements IPl
     public void hideLoading() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.cancel();
-        }
-    }
-
-    @Override
-    public void hideKeyboard() {
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm != null) imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
@@ -117,5 +109,10 @@ public abstract class PlateBaseActivity extends AppCompatActivity implements IPl
     @Override
     public boolean isNetworkConnected() {
         return NetworkUtils.isNetworkConnected(this);
+    }
+
+    @Override
+    public void hideKeyboard() {
+        KeyboardUtils.hideSoftInput(this);
     }
 }

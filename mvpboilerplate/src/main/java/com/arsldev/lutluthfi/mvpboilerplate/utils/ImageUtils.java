@@ -11,8 +11,12 @@ public final class ImageUtils {
         // This utility is not publicly instantiable
     }
 
-    public static void loadImage(Context context, String path, ImageView holder) {
-        Glide.with(context).load(path).asBitmap().centerCrop().into(holder);
+    public static void loadImage(Context context, String resource, ImageView holder) {
+        Glide.with(context).load(resource).asBitmap().centerCrop().into(holder);
+    }
+
+    public static void loadImage(Context context, int resource, ImageView holder) {
+        Glide.with(context).load(resource).asBitmap().centerCrop().into(holder);
     }
 
     // TODO : not provide for custom target
