@@ -42,6 +42,12 @@ public abstract class PlateBaseBottomDialog extends BottomSheetDialogFragment im
         show(ft, tag);
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (mContext == null) mContext = getActivity() != null ? getActivity() : getContext();
+    }
+
     @NonNull @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final RelativeLayout root = new RelativeLayout(getActivity());
@@ -80,7 +86,7 @@ public abstract class PlateBaseBottomDialog extends BottomSheetDialogFragment im
     @Override
     public void showLoading() {
         hideLoading();
-        mProgressDialog = CommonUtils.showLoadingDialog(this.getContext());
+        mProgressDialog = CommonUtils.showLoadingDialog(mContext);
     }
 
     @Override

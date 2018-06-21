@@ -33,9 +33,17 @@ public abstract class PlateBaseDialog extends DialogFragment implements IPlateBa
 
     protected abstract void setupView(View view);
 
+    public void show(FragmentManager fm, String tag) {
+        FragmentTransaction ft = fm.beginTransaction();
+        Fragment prevFragment = fm.findFragmentByTag(tag);
+        if (prevFragment != null) ft.remove(prevFragment);
+        ft.addToBackStack(null);
+        show(ft, tag);
+    }
+
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         if (mContext == null) mContext = getActivity() != null ? getActivity() : getContext();
     }
 
@@ -53,14 +61,6 @@ public abstract class PlateBaseDialog extends DialogFragment implements IPlateBa
             dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
         return dialog;
-    }
-
-    public void show(FragmentManager fm, String tag) {
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment prevFragment = fm.findFragmentByTag(tag);
-        if (prevFragment != null) ft.remove(prevFragment);
-        ft.addToBackStack(null);
-        show(ft, tag);
     }
 
     @Override
@@ -86,7 +86,7 @@ public abstract class PlateBaseDialog extends DialogFragment implements IPlateBa
     @Override
     public void showLoading() {
         hideLoading();
-        mProgressDialog = CommonUtils.showLoadingDialog(this.getContext());
+        mProgressDialog = CommonUtils.showLoadingDialog(mContext);
     }
 
     @Override

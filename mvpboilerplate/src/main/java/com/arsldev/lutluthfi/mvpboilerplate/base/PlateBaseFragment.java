@@ -27,8 +27,8 @@ public abstract class PlateBaseFragment extends Fragment implements IPlateBaseVi
     public abstract void setupView(View view);
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         if (mContext == null) mContext = getActivity() != null ? getActivity() : getContext();
     }
 
@@ -55,7 +55,7 @@ public abstract class PlateBaseFragment extends Fragment implements IPlateBaseVi
     @Override
     public void showLoading() {
         hideLoading();
-        mProgressDialog = CommonUtils.showLoadingDialog(this.getContext());
+        mProgressDialog = CommonUtils.showLoadingDialog(mContext);
     }
 
     @Override
