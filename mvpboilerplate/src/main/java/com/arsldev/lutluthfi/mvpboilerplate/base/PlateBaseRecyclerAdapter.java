@@ -1,7 +1,9 @@
 package com.arsldev.lutluthfi.mvpboilerplate.base;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +72,11 @@ public abstract class PlateBaseRecyclerAdapter<T, VH extends PlateBaseRecyclerAd
     }
 
     @Override
+    public void onBindViewHolder(@NonNull VH holder, int position) {
+        ((PlateBaseViewHolder) holder).mItem = mItems.get(position);
+    }
+
+    @Override
     public int getItemCount() {
         return mItems.size();
     }
@@ -77,20 +84,13 @@ public abstract class PlateBaseRecyclerAdapter<T, VH extends PlateBaseRecyclerAd
     public static abstract class PlateBaseViewHolder<T> extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private T mItem;
-        private int mCurrentPosition;
 
         public PlateBaseViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
         }
 
-        protected void onBind(int position){
-            this.mCurrentPosition = position;
-        }
-
-        protected int getCurrentPosition() {
-            return mCurrentPosition;
-        }
+        protected abstract void onBind();
 
         @SuppressWarnings("unchecked") @Override
         public void onClick(View v) {
