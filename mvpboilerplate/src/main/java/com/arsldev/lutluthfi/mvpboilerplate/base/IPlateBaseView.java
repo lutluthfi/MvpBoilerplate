@@ -1,6 +1,7 @@
 package com.arsldev.lutluthfi.mvpboilerplate.base;
 
 import android.support.annotation.StringRes;
+import android.view.View;
 
 public interface IPlateBaseView {
 
@@ -11,8 +12,6 @@ public interface IPlateBaseView {
     boolean isLoading();
 
     boolean isNetworkConnected();
-
-    void hideKeyboard();
 
     void onError(String message);
 
@@ -26,7 +25,17 @@ public interface IPlateBaseView {
 
     void printLog(String tag, @StringRes int resId);
 
-    void printLog(String tag, String message, Throwable tr);
+    void printLog(String tag, Throwable tr);
 
-    void printLog(String tag, @StringRes int resId, Throwable tr);
+    void showSnackbar(String message, int duration, int textColor);
+
+    void showSnackbar(@StringRes int resId, int duration, int textColor);
+
+    void showSnackbarWithAction(String message, int duration, int textColor, String action, View.OnClickListener listener);
+
+    void showSnackbarWithAction(@StringRes int resId, int duration, int textColor, String action, View.OnClickListener listener);
+
+    void hideSnackbar();
+
+    boolean isSnackbarShowing();
 }

@@ -27,11 +27,12 @@ import butterknife.Unbinder;
 
 public abstract class PlateBaseDialog extends DialogFragment implements IPlateBaseView {
 
-    private Context mContext;
     private ProgressDialog mProgressDialog;
-    private Unbinder mUnBinder;
+    protected Context fragmentContext;
 
     protected abstract void setupView(View view);
+
+    protected abstract void setupListener();
 
     public void show(FragmentManager fm, String tag) {
         FragmentTransaction ft = fm.beginTransaction();
@@ -44,7 +45,7 @@ public abstract class PlateBaseDialog extends DialogFragment implements IPlateBa
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (mContext == null) mContext = getActivity() != null ? getActivity() : getContext();
+        if (fragmentContext == null) fragmentContext = getActivity() != null ? getActivity() : getContext();
     }
 
     @NonNull
@@ -52,7 +53,7 @@ public abstract class PlateBaseDialog extends DialogFragment implements IPlateBa
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final RelativeLayout root = new RelativeLayout(getActivity());
         root.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        final Dialog dialog = new Dialog(mContext);
+        final Dialog dialog = new Dialog(fragmentContext);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         if (dialog.getWindow() != null) {
@@ -67,26 +68,13 @@ public abstract class PlateBaseDialog extends DialogFragment implements IPlateBa
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupView(view);
-    }
-
-    @Override
-    public void onDestroy() {
-        if (mUnBinder != null) mUnBinder.unbind();
-        super.onDestroy();
-    }
-
-    public Context getPlateContext() {
-        return mContext;
-    }
-
-    public void setUnBinder(Unbinder unBinder) {
-        mUnBinder = unBinder;
+        setupListener();
     }
 
     @Override
     public void showLoading() {
         hideLoading();
-        mProgressDialog = CommonUtils.showLoadingDialog(mContext);
+        mProgressDialog = CommonUtils.showLoadingDialog(fragmentContext);
     }
 
     @Override
@@ -101,30 +89,25 @@ public abstract class PlateBaseDialog extends DialogFragment implements IPlateBa
 
     @Override
     public boolean isNetworkConnected() {
-        return NetworkUtils.isNetworkConnected(mContext);
-    }
-
-    @Override
-    public void hideKeyboard() {
-        KeyboardUtils.hideSoftInput((PlateBaseActivity) mContext);
+        return NetworkUtils.isNetworkConnected(fragmentContext);
     }
 
     @Override
     public void onError(String message) {
-        ((PlateBaseActivity) mContext).onError(message);
+
     }
 
     @Override
     public void onError(int resId) {
-        ((PlateBaseActivity) mContext).onError(resId);
+
     }
 
     @Override
     public void showMessage(String message) {
-        if (message != null) {
-            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+        if (message != null && !message.isEmpty()) {
+            Toast.makeText(fragmentContext, message, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(mContext, getString(R.string.error_general), Toast.LENGTH_SHORT).show();
+            Toast.makeText(fragmentContext, getString(R.string.utils_error_view), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -135,21 +118,47 @@ public abstract class PlateBaseDialog extends DialogFragment implements IPlateBa
 
     @Override
     public void printLog(String tag, String message) {
-        Log.d(tag, message);
+        if (message != null && !message.isEmpty()) Log.d(tag, message);
+        else Log.d(tag, getString(R.string.utils_error_view));
     }
 
     @Override
     public void printLog(String tag, int resId) {
-        Log.d(tag, getString(resId));
+        printLog(tag, getString(resId));
     }
 
     @Override
-    public void printLog(String tag, String message, Throwable tr) {
-        Log.e(tag, message, tr);
+    public void printLog(String tag, Throwable tr) {
+        Log.d(tag, tr.getMessage(), tr);
     }
 
     @Override
-    public void printLog(String tag, int resId, Throwable tr) {
-        Log.e(tag, getString(resId), tr);
+    public void showSnackbar(String message, int duration, int textColor) {
+
+    }
+
+    @Override
+    public void showSnackbar(int resId, int duration, int textColor) {
+
+    }
+
+    @Override
+    public void showSnackbarWithAction(String message, int duration, int textColor, String action, View.OnClickListener listener) {
+
+    }
+
+    @Override
+    public void showSnackbarWithAction(int resId, int duration, int textColor, String action, View.OnClickListener listener) {
+
+    }
+
+    @Override
+    public void hideSnackbar() {
+
+    }
+
+    @Override
+    public boolean isSnackbarShowing() {
+        return false;
     }
 }

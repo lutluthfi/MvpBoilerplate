@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class PlateBaseRecyclerAdapter<T, VH extends PlateBaseRecyclerAdapter.PlateBaseViewHolder> extends RecyclerView.Adapter<VH>{
+public abstract class PlateBaseRecyclerAdapter<T, VH extends PlateBaseRecyclerAdapter.PlateBaseViewHolder> extends RecyclerView.Adapter<VH> {
     public interface OnItemClickListener<T> {
         void onItemClickListener(View view, T item, int position);
+
+        boolean onLongItemClickListener(View view, T item, int position);
     }
 
     private static OnItemClickListener sListener;
@@ -81,7 +83,7 @@ public abstract class PlateBaseRecyclerAdapter<T, VH extends PlateBaseRecyclerAd
         return mItems.size();
     }
 
-    public static abstract class PlateBaseViewHolder<T> extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static abstract class PlateBaseViewHolder<T> extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         private T mItem;
 
@@ -92,11 +94,18 @@ public abstract class PlateBaseRecyclerAdapter<T, VH extends PlateBaseRecyclerAd
 
         protected abstract void onBind();
 
-        @SuppressWarnings("unchecked") @Override
+        @SuppressWarnings("unchecked")
+        @Override
         public void onClick(View v) {
             if (sListener != null) {
                 sListener.onItemClickListener(this.itemView, mItem, getAdapterPosition());
             }
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public boolean onLongClick(View view) {
+            return sListener != null && sListener.onLongItemClickListener(this.itemView, mItem, getAdapterPosition());
         }
     }
 }

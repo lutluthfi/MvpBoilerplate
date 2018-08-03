@@ -100,26 +100,26 @@
     <color name="colorBrown700">#5D4037</color>
     <color name="colorBrown800">#4E342E</color>
     <color name="colorBrown900">#3E2723</color>
-    <!-- Grey -->
-    <color name="colorGrey100">#F5F5F5</color>
-    <color name="colorGrey200">#EEEEEE</color>
-    <color name="colorGrey300">#E0E0E0</color>
-    <color name="colorGrey400">#BDBDBD</color>
-    <color name="colorGrey500">#9E9E9E</color>
-    <color name="colorGrey600">#757575</color>
-    <color name="colorGrey700">#616161</color>
-    <color name="colorGrey800">#424242</color>
-    <color name="colorGrey900">#212121</color>
-    <!-- Blue Grey -->
-    <color name="colorBlueGrey100">#CFD8DC</color>
-    <color name="colorBlueGrey200">#B0BEC5</color>
-    <color name="colorBlueGrey300">#90A4AE</color>
-    <color name="colorBlueGrey400">#78909C</color>
-    <color name="colorBlueGrey500">#607D8B</color>
-    <color name="colorBlueGrey600">#546E7A</color>
-    <color name="colorBlueGrey700">#455A64</color>
-    <color name="colorBlueGrey800">#37474F</color>
-    <color name="colorBlueGrey900">#263238</color>
+    <!-- Gray -->
+    <color name="colorGray100">#F5F5F5</color>
+    <color name="colorGray200">#EEEEEE</color>
+    <color name="colorGray300">#E0E0E0</color>
+    <color name="colorGray400">#BDBDBD</color>
+    <color name="colorGray500">#9E9E9E</color>
+    <color name="colorGray600">#757575</color>
+    <color name="colorGray700">#616161</color>
+    <color name="colorGray800">#424242</color>
+    <color name="colorGray900">#212121</color>
+    <!-- Blue Gray -->
+    <color name="colorBlueGray100">#CFD8DC</color>
+    <color name="colorBlueGray200">#B0BEC5</color>
+    <color name="colorBlueGray300">#90A4AE</color>
+    <color name="colorBlueGray400">#78909C</color>
+    <color name="colorBlueGray500">#607D8B</color>
+    <color name="colorBlueGray600">#546E7A</color>
+    <color name="colorBlueGray700">#455A64</color>
+    <color name="colorBlueGray800">#37474F</color>
+    <color name="colorBlueGray900">#263238</color>
     <!-- Black & white -->
     <color name="colorWhite">@android:color/white</color>
     <color name="colorBlack">@android:color/black</color>

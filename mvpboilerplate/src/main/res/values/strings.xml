@@ -4,8 +4,6 @@
     <string name="notifications">Notifications</string>
     <string name="settings">Settings</string>
     <string name="profile">Profile</string>
-    <string name="my_booking">My Booking</string>
-    <string name="my_order">My Orders</string>
     <string name="my_account">My Account</string>
     <string name="search">Search</string>
     <string name="history">History</string>
@@ -37,7 +35,10 @@
     <string name="write">Write a message&#8230;</string>
 
     <string name="get_started">Get started</string>
-    <string name="register">Do not have account? Register now</string>
+    <string name="register_now">Do not have account? Register now</string>
+    <string name="register">Register</string>
+    <string name="login">Log in</string>
+    <string name="logout">Log out</string>
     <string name="sign_up">Sign up</string>
     <string name="sign_in">Sign in</string>
     <string name="sign_out">Sign out</string>
@@ -45,6 +46,10 @@
     <string name="add">Add</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string-array name="change">
+        <item>Change</item>
+        <item>Change %s</item>
+    </string-array>
 
     <string name="full_name">Full name</string>
     <string name="first_name">First name</string>
@@ -59,21 +64,51 @@
     <string name="female">Female</string>
     <string name="change_photo">Change photo</string>
 
+    <string name="prompt_full_name">Full name</string>
+    <string name="prompt_first_name">First name</string>
+    <string name="prompt_last_name">Last name</string>
+    <string name="prompt_email_address">Email address</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_phone_number">Phone number</string>
+    <string name="prompt_phone">Phone</string>
+    <string name="prompt_mobile_number">Mobile number</string>
+    <string name="prompt_date">dd-MM-yyyy</string>
+    <string name="prompt_address">Address</string>
+    <string name="prompt_gender">Gender</string>
+    <string name="prompt_gender_male">Male</string>
+    <string name="prompt_gender_female">Female</string>
+
+    <string name="prompt_number">99</string>
+    <string name="prompt_cost">Rp 100.000.,-</string>
+
+    <string name="foo_full_name">Arif Luthfiansyah</string>
+    <string name="foo_first_name">Arif</string>
+    <string name="foo_last_name">Luthfiansyah</string>
+    <string name="foo_email_address">lutluthfiansyah@gmail.com</string>
+    <string name="foo_phone_number">+622112345678</string>
+    <string name="foo_mobile_number">+6285216863058</string>
+    <string-array name="foo_date">
+        <item>17 December 1997</item>
+        <item>17 Dec 1997, 19:30</item>
+    </string-array>
+    <string name="foo_address">Jl. Ikan Tombro No 5B Tunjungsekar, Lowokwaru, Malang</string>
+
     <string name="google">Google</string>
     <string name="facebook">Facebook</string>
     <string name="twitter">Twitter</string>
     <string name="line">Line</string>
 
-    <string name="foo_name">Arif Luthfiansyah</string>
-    <string name="foo_phone">+6285216863058</string>
-    <string name="foo_email">lutluthfiansyah@gmail.com</string>
-    <string name="foo_date">17 December 1997</string>
-    <string name="foo_time">17 Dec, 19:30</string>
-    <string name="foo_address">Jl. Ikan Tombro No 5B Tunjungsekar, Lowokwaru, Malang</string>
-    <string name="foo_service">Repair car machine</string>
-    <string name="foo_order_id">ORDER No HA-12345678</string>
-    <string name="foo_number">99</string>
-    <string name="foo_cost">Rp 100.000,-</string>
+    <string name="utils_tap_to_open">Tap to open details</string>
+    <string name="utils_tap_to_close">To to close details</string>
+
+    <string name="utils_success_common">Success finishing your task</string>
+
+    <string name="utils_error_view">Some error in your view</string>
+    <string name="utils_error_common">Some error occur</string>
+
+    <string name="utils_application_terms">Terms of service</string>
+    <string name="utils_application_privacy">Privacy policy</string>
+    <string name="utils_application_rate">Rate our app</string>
 
     <string name="lorem_complete">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -86,15 +121,4 @@
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     </string>
     <string name="lorem_short">Lorem ipsum dolor sit amet</string>
-    <string name="open_bottom_sheet">Tap to open details</string>
-    <string name="close_bottom_sheet">Tap to close details</string>
-    <string name="terms_of_service">Terms of Service</string>
-    <string name="privacy_policy">Privacy policy</string>
-    <string name="rate_our_app">Rate Help me App</string>
-    <string name="ask_cancel">Are you sure want to cancel?</string>
-    <string name="success_general">Your task is complete</string>
-    <string name="warning">Warning</string>
-    <string name="error_general">Some error occur</string>
-    <string name="error_ui">Some error in your ui</string>
-    <string name="error_sign_in">Wrong email or password</string>
 </resources>

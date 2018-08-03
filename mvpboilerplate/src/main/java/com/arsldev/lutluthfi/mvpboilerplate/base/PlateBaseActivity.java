@@ -20,20 +20,12 @@ import butterknife.Unbinder;
 
 public abstract class PlateBaseActivity extends AppCompatActivity implements IPlateBaseView {
 
+    private Snackbar mSnackbar;
     private ProgressDialog mProgressDialog;
-    private Unbinder mUnbinder;
 
-    public abstract void setupView();
+    protected abstract void setupView();
 
-    @Override
-    protected void onDestroy() {
-        if (mUnbinder != null) mUnbinder.unbind();
-        super.onDestroy();
-    }
-
-    public void setUnBinder(Unbinder unBinder) {
-        mUnbinder = unBinder;
-    }
+    protected abstract void setupListener();
 
     @Override
     public void showLoading() {
@@ -42,42 +34,40 @@ public abstract class PlateBaseActivity extends AppCompatActivity implements IPl
     }
 
     @Override
-    public boolean isLoading() {
-        return mProgressDialog.isShowing();
+    public void hideLoading() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) mProgressDialog.cancel();
     }
 
     @Override
-    public void hideLoading() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.cancel();
-        }
+    public boolean isLoading() {
+        return mProgressDialog != null && mProgressDialog.isShowing();
     }
 
-    private void showSnackBar(String message) {
-        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT);
-        View sbView = snackbar.getView();
-        TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setTextColor(ContextCompat.getColor(this, android.R.color.white));
-        snackbar.show();
+    @Override
+    public boolean isNetworkConnected() {
+        return NetworkUtils.isNetworkConnected(this);
     }
 
     @Override
     public void onError(String message) {
-        if (message != null) showSnackBar(message);
-        else showSnackBar(getString(R.string.error_general));
+        if (message != null && !message.isEmpty()) {
+            showSnackbar(message, Snackbar.LENGTH_SHORT, R.color.colorWhite);
+        } else {
+            showSnackbar(getString(R.string.utils_error_view), Snackbar.LENGTH_SHORT, R.color.colorWhite);
+        }
     }
 
     @Override
     public void onError(int resId) {
-        onError(getString(resId));
+        showSnackbar(getString(resId), Snackbar.LENGTH_SHORT, R.color.colorWhite);
     }
 
     @Override
     public void showMessage(String message) {
-        if (message != null) {
+        if (message != null && !message.isEmpty()) {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, getString(R.string.error_general), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.utils_error_view), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -88,7 +78,8 @@ public abstract class PlateBaseActivity extends AppCompatActivity implements IPl
 
     @Override
     public void printLog(String tag, String message) {
-        Log.d(tag, message);
+        if (message != null && !message.isEmpty()) Log.d(tag, message);
+        else Log.d(tag, getString(R.string.utils_error_view));
     }
 
     @Override
@@ -97,22 +88,55 @@ public abstract class PlateBaseActivity extends AppCompatActivity implements IPl
     }
 
     @Override
-    public void printLog(String tag, String message, Throwable tr) {
-        Log.e(tag, message, tr);
+    public void printLog(String tag, Throwable tr) {
+        Log.d(tag, tr.getMessage(), tr);
     }
 
     @Override
-    public void printLog(String tag, int resId, Throwable tr) {
-        printLog(tag, getString(resId), tr);
+    public void showSnackbar(String message, int duration, int textColor) {
+        hideSnackbar();
+        createSnackbar(message, duration, textColor).show();
     }
 
     @Override
-    public boolean isNetworkConnected() {
-        return NetworkUtils.isNetworkConnected(this);
+    public void showSnackbar(int resId, int duration, int textColor) {
+        hideSnackbar();
+        createSnackbar(getString(resId), duration, textColor).show();
+    }
+    @Override
+    public void showSnackbarWithAction(String message, int duration, int textColor, String action, View.OnClickListener listener) {
+        hideSnackbar();
+        createSnackbar(message, duration, textColor).setAction(action, listener).show();
     }
 
     @Override
-    public void hideKeyboard() {
-        KeyboardUtils.hideSoftInput(this);
+    public void showSnackbarWithAction(int resId, int duration, int textColor, String action, View.OnClickListener listener) {
+        hideSnackbar();
+        createSnackbar(getString(resId), duration, textColor).setAction(action, listener).show();
+    }
+
+    @Override
+    public void hideSnackbar() {
+        if (mSnackbar != null && mSnackbar.isShown()) mSnackbar.dismiss();
+    }
+
+    @Override
+    public boolean isSnackbarShowing() {
+        return mSnackbar != null && mSnackbar.isShown();
+    }
+
+    private Snackbar createSnackbar(String message, int duration, int textColor) {
+        if (message != null && !message.isEmpty()) {
+            mSnackbar = Snackbar.make(findViewById(android.R.id.content), message, duration);
+            View snackbarView = mSnackbar.getView();
+            TextView textView = snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(ContextCompat.getColor(this, textColor));
+        } else {
+            mSnackbar = Snackbar.make(findViewById(android.R.id.content), getString(R.string.utils_error_common), duration);
+            View snackbarView = mSnackbar.getView();
+            TextView textView = snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(ContextCompat.getColor(this, textColor));
+        }
+        return mSnackbar;
     }
 }
