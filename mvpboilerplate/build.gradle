@@ -28,28 +28,23 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     // Android
-    implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
-    implementation "com.android.support:design:$rootProject.supportLibraryVersion"
-    implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
-    implementation "com.android.support:support-vector-drawable:$rootProject.supportLibraryVersion"
-    // Ui
-    implementation "com.mlsdev.rximagepicker:library:$rootProject.rximagePickerVersion"
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:support-vector-drawable:27.1.1'
     // Dagger
     implementation 'javax.inject:javax.inject:1'
     compileOnly 'javax.annotation:jsr250-api:1.0'
     // Rx
-    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjava2Version"
-    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.17'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     // Utils
-    implementation "com.intuit.sdp:sdp-android:$rootProject.intuitsdpVersion"
-    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
-    implementation "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterKnifeVersion"
+    implementation 'com.intuit.sdp:sdp-android:1.0.5'
     // Unit test
-    testImplementation "junit:junit:$rootProject.junitVersion"
-    testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
-    testImplementation "org.mockito:mockito-android:$rootProject.mockitoVersion"
-    androidTestImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
-    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$rootProject.espressoVersion"
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.15.0'
+    testImplementation 'org.mockito:mockito-android:2.15.0'
+    androidTestImplementation 'org.mockito:mockito-core:2.15.0'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
 }
