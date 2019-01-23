@@ -1,24 +1,17 @@
-# MvpBoilerplate
+# Boierlpate
 
-This is personal boilerplate. Maybe I'll think to renew for anyone who needs
+This is personal boilerplate for android. 
+This repo include any kind of architectur pattern for android (MVP, MVVM, VIPER)
 
 # Getting Started
 
-Add this code to your build.gradle project allprojects block.
+1. Clone this repo
 
-for example:
+        git clone https://github.com/lutluthfi/Boilerplate-android.git
 
-    allprojects {
-      repositories {
-          ...
-          maven { url 'https://jitpack.io' }
-      }
-    }
-    
-Add implementation 'com.github.lutluthfi:MvpBoilerplate:x.x.x' to your build.gradle app dependencies block.
+2. Open your Android Studio
 
-for example:
+3. File -> New -> Import Module
 
-    dependencies {
-      implementation 'com.github.lutluthfi:MvpBoilerplate:x.x.x'
-    }
+4. Choose boilerplate which one you want to use
+
