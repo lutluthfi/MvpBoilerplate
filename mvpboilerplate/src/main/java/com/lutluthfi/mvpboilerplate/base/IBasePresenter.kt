@@ -1,9 +1,7 @@
 package com.lutluthfi.mvpboilerplate.base
 
 interface IBasePresenter<V : IBaseView> {
-    fun onAttach()
+    fun onAttached()
 
-    fun onDetach()
-
-    fun isAttached(): Boolean
+    fun onDetached()
 }

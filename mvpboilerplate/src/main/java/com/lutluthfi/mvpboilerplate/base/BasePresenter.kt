@@ -2,24 +2,22 @@ package com.lutluthfi.mvpboilerplate.base
 
 open class BasePresenter<V : IBaseView>(view: V) : IBasePresenter<V> {
 
-    private var isAttached: Boolean = false
-    protected var view: V? = null
+    protected var mIsAttached: Boolean = false
+        private set
+
+    protected var mView: V? = null
         private set
 
     init {
-        this.view = view
+        this.mView = view
     }
 
-    override fun onAttach() {
-        this.isAttached = true
+    override fun onAttached() {
+        mIsAttached = true
     }
 
-    override fun onDetach() {
-        this.view = null
-        this.isAttached = false
-    }
-
-    override fun isAttached(): Boolean {
-        return isAttached
+    override fun onDetached() {
+        mView = null
+        mIsAttached = false
     }
 }

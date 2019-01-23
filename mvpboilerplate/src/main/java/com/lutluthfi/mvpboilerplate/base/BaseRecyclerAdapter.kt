@@ -8,75 +8,72 @@ import java.util.ArrayList
 abstract class BaseRecyclerAdapter<T, VH : BaseRecyclerAdapter.PlateBaseViewHolder<*>> :
         RecyclerView.Adapter<VH>() {
 
-    private var listener: OnItemClickListener<T>? = null
-    var pageIndex = 1
+    var mItems: MutableList<T> = ArrayList()
         private set
-    private var items: MutableList<T> = ArrayList()
+
+    protected var mPageIndex = 0
+        private set
+
+    protected var mListener: OnItemClickListener<T>? = null
+        private set
 
     fun setOnClickListener(listener: OnItemClickListener<T>) {
-        this.listener = listener
+        mListener = listener
     }
 
     fun setItems(items: MutableList<T>?) {
         items?.let {
-            this.items = it
+            this.mItems = it
             notifyDataSetChanged()
         }
     }
 
     fun setItems(item: T, index: Int) {
-        if (this.items.size > index) {
-            this.items[index] = item
+        if (mItems.size > index) {
+            mItems[index] = item
             notifyItemChanged(index)
         }
     }
 
     fun getItem(position: Int): T? {
-        return if (this.items.size > position) this.items[position]
+        return if (mItems.size > position) mItems[position]
         else null
     }
 
     fun removeItem(index: Int) {
-        if (this.items.size > index) {
-            this.items.removeAt(index)
+        if (mItems.size > index) {
+            mItems.removeAt(index)
             notifyItemRemoved(index)
-            notifyItemChanged(index, this.items.size)
+            notifyItemChanged(index, mItems.size)
         }
     }
 
     fun clear() {
-        this.items.clear()
+        mItems.clear()
         notifyDataSetChanged()
     }
 
     fun addItems(items: List<T>, pageIndex: Int) {
-        this.pageIndex = pageIndex
-        this.items.addAll(items)
-        notifyItemInserted(this.items.size)
-    }
-
-    fun getItems(): List<T>? {
-        return items
+        mPageIndex = pageIndex
+        mItems.addAll(items)
+        notifyItemInserted(mItems.size)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.itemView.setOnClickListener { _ ->
-            listener?.run {
-                onItemClickListener(holder.itemView, items[position], position)
+        holder.itemView.setOnClickListener {
+            mListener?.run {
+                onItemClickListener(holder.itemView, mItems[position], position)
             }
         }
-        holder.itemView.setOnLongClickListener { _ ->
-            listener != null && listener!!.onLongItemClickListener(holder.itemView, items[position], position)
+        holder.itemView.setOnLongClickListener {
+            mListener != null && mListener!!.onLongItemClickListener(holder.itemView, mItems[position], position)
         }
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount(): Int = mItems.size
 
     abstract class PlateBaseViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        private val item: T? = null
+        protected var mItem: T? = null
 
         protected abstract fun onBind()
     }

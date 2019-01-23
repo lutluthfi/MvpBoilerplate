@@ -6,30 +6,29 @@ import android.os.Bundle
 import android.support.design.widget.BottomSheetDialogFragment
 import android.support.v4.app.FragmentManager
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 
-import com.lutluthfi.mvpboilerplate.R
-import com.lutluthfi.mvpboilerplate.CommonUtils
 import com.lutluthfi.mvpboilerplate.NetworkUtils
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
 
 abstract class BaseBottomDialog : BottomSheetDialogFragment(), IBaseView {
 
     private var progressDialog: ProgressDialog? = null
 
-    protected var fragmentContext: Context? = null
+    var fragmentContext: Context? = null
         private set
 
-    protected abstract fun setupView(view: View)
-
-    protected abstract fun setupListener()
-
     override fun show(fm: FragmentManager, tag: String) {
-        val ft = fm.beginTransaction()
-        val prevFragment = fm.findFragmentByTag(tag)
-        prevFragment?.let { ft.remove(it) }
-        ft.addToBackStack(null)
-        show(ft, tag)
+        show(fm.beginTransaction()
+                .apply {
+                    fm.findFragmentByTag(tag)?.let { remove(it) }
+                    addToBackStack(null)
+                    commit()
+                }, tag)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,9 +36,66 @@ abstract class BaseBottomDialog : BottomSheetDialogFragment(), IBaseView {
         if (fragmentContext == null) fragmentContext = if (activity != null) activity else context
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(initContentView(), container, false).apply {
+            initComponentView()
+            initDependency()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupView(view)
+        setupView()
         setupListener()
     }
+
+    override fun isNetworkConnected(): Boolean {
+        var connected = false
+        NetworkUtils.isNetworkConnected(context = requireContext())
+                .subscribe(object : Observer<Boolean> {
+                    override fun onComplete() {
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+                    }
+
+                    override fun onNext(t: Boolean) {
+                        connected = t
+                    }
+
+                    override fun onError(e: Throwable) {
+                        e.printStackTrace()
+                    }
+                })
+        return connected
+    }
+
+    override fun printLog(tag: String, message: String) {
+        Log.d(tag, message)
+    }
+
+    override fun printLog(tag: String, resId: Int) {
+        Log.d(tag, getString(resId))
+    }
+
+    override fun showLoading(show: Boolean) {
+    }
+
+    override fun toastMessage(resId: Int) {
+        Toast.makeText(fragmentContext, getString(resId), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun toastMessage(message: String) {
+        Toast.makeText(fragmentContext, message, Toast.LENGTH_SHORT).show()
+    }
+
+    protected abstract fun initContentView(): Int
+
+    protected abstract fun initComponentView()
+
+    protected abstract fun initDependency()
+
+    protected abstract fun setupView()
+
+    protected abstract fun setupListener()
 }
