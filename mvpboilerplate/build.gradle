@@ -19,8 +19,8 @@ android {
 
     buildTypes {
         release {
-            useProguard true
-            minifyEnabled true
+            useProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -32,40 +32,46 @@ android {
 }
 
 ext {
-    kotlin_version = '1.2.71'
-    support_library_version = '28.0.0'
-    intuit_version = '1.0.5'
     circle_image_version = '2.2.0'
+    intuit_version = '1.0.6'
+    kotlin_version = '1.3.11'
+    okhttp_version = '3.10.0'
     picasso_version = '2.71828'
     rxjava_version = '2.1.17'
-    rxandroid_version = '2.0.2'
+    rxandroid_version = '2.1.0'
     retrofit_version = '2.4.0'
-    okhttp_version = '3.10.0'
-    gson_version = '2.8.5'
+    support_library_version = '28.0.0'
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    // Android version
     api "com.android.support:appcompat-v7:$support_library_version"
     api "com.android.support:design:$support_library_version"
     api "com.android.support:cardview-v7:$support_library_version"
     api "com.android.support:recyclerview-v7:$support_library_version"
     api "com.android.support:animated-vector-drawable:$support_library_version"
     api "com.android.support:exifinterface:$support_library_version"
-    api "com.intuit.sdp:sdp-android:$intuit_version"
-    api "com.intuit.ssp:ssp-android:$intuit_version"
-    api "de.hdodenhof:circleimageview:$circle_image_version"
-    api "com.squareup.picasso:picasso:$picasso_version"
-    api "io.reactivex.rxjava2:rxjava:$rxjava_version"
-    api "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    // Dagger
+    api 'javax.inject:javax.inject:1'
+    compileOnly 'javax.annotation:jsr250-api:1.0'
+    // Kotlin
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    // Network
     api "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     api "com.squareup.retrofit2:converter-gson:$retrofit_version"
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     api "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
-    api "com.google.code.gson:gson:$gson_version"
-    implementation 'javax.inject:javax.inject:1'
-    compileOnly 'javax.annotation:jsr250-api:1.0'
+    // ReactiveX
+    api "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    api "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    // Utils
+    api "com.intuit.sdp:sdp-android:$intuit_version"
+    api "com.intuit.ssp:ssp-android:$intuit_version"
+    api "com.squareup.picasso:picasso:$picasso_version"
+    // Ui
+    api "de.hdodenhof:circleimageview:$circle_image_version"
+    // Testing
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
