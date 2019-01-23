@@ -7,13 +7,13 @@ interface IBaseView {
 
     fun isNetworkConnected(): Boolean
 
-    fun printLog(tag: String, message: String?)
+    fun printLog(tag: String = "IBaseView", message: String = "Hello")
 
-    fun printLog(tag: String, @StringRes resId: Int)
+    fun printLog(tag: String = "IBaseView", @StringRes resId: Int = 0)
 
     fun showLoading(show: Boolean)
 
-    fun toastMessage(@StringRes resId: Int)
+    fun toastMessage(@StringRes resId: Int = 0)
 
-    fun toastMessage(message: String?)
+    fun toastMessage(message: String = "Hello")
 }
