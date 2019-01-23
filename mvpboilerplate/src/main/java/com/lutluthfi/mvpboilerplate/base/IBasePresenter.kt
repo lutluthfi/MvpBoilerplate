@@ -1,6 +1,6 @@
 package com.lutluthfi.mvpboilerplate.base
 
-interface IPlateBasePresenter<V : IPlateBaseView> {
+interface IBasePresenter<V : IBaseView> {
     fun onAttach()
 
     fun onDetach()

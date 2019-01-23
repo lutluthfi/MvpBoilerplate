@@ -5,7 +5,7 @@ import android.view.View
 
 import java.util.ArrayList
 
-abstract class PlateBaseRecyclerAdapter<T, VH : PlateBaseRecyclerAdapter.PlateBaseViewHolder<*>> :
+abstract class BaseRecyclerAdapter<T, VH : BaseRecyclerAdapter.PlateBaseViewHolder<*>> :
         RecyclerView.Adapter<VH>() {
 
     private var listener: OnItemClickListener<T>? = null

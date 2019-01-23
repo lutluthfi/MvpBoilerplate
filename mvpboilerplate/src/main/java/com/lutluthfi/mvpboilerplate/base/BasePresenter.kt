@@ -1,6 +1,6 @@
 package com.lutluthfi.mvpboilerplate.base
 
-open class PlateBasePresenter<V : IPlateBaseView>(view: V) : IPlateBasePresenter<V> {
+open class BasePresenter<V : IBaseView>(view: V) : IBasePresenter<V> {
 
     private var isAttached: Boolean = false
     protected var view: V? = null

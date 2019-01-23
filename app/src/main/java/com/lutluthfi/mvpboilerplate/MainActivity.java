@@ -2,9 +2,9 @@ package com.lutluthfi.mvpboilerplate;
 
 import android.os.Bundle;
 
-import com.lutluthfi.mvpboilerplate.base.PlateBaseActivity;
+import com.lutluthfi.mvpboilerplate.base.BaseActivity;
 
-public class MainActivity extends PlateBaseActivity {
+public class MainActivity extends BaseActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
