@@ -12,10 +12,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 object NetworkModule {
 
     fun create(baseUrl: String): Retrofit {
-        val client = createHttpClient()
         return Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .client(client)
+                .client(createHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
@@ -24,17 +23,15 @@ object NetworkModule {
     private fun createHttpClient(): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        val builder = OkHttpClient.Builder()
-        with(builder) {
+        return OkHttpClient.Builder().apply {
             connectTimeout(NetworkConstant.CONNECTION_TIME_OUT.toLong(), TimeUnit.MILLISECONDS)
             readTimeout(NetworkConstant.CONNECTION_READ_TIME_OUT.toLong(), TimeUnit.MILLISECONDS)
             retryOnConnectionFailure(true)
             connectionPool(ConnectionPool(
-                NetworkConstant.CONNECTION_MAX_IDLE,
-                NetworkConstant.CONNECTION_ALIVE_DURATION.toLong(),
-                TimeUnit.MILLISECONDS))
-            return@with addInterceptor(loggingInterceptor)
-        }
-        return builder.build()
+                    NetworkConstant.CONNECTION_MAX_IDLE,
+                    NetworkConstant.CONNECTION_ALIVE_DURATION.toLong(),
+                    TimeUnit.MILLISECONDS))
+            addInterceptor(loggingInterceptor)
+        }.build()
     }
 }// This class is not publicly instantiate
