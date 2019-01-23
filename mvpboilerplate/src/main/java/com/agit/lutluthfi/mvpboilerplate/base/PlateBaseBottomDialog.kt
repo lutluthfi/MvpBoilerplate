@@ -1,25 +1,17 @@
 package com.agit.lutluthfi.mvpboilerplate.base
 
-import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.design.widget.BottomSheetDialog
 import android.support.design.widget.BottomSheetDialogFragment
-import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import android.widget.RelativeLayout
 import android.widget.Toast
 
 import com.agit.lutluthfi.mvpboilerplate.R
-import com.agit.lutluthfi.mvpboilerplate.util.CommonUtils
-import com.agit.lutluthfi.mvpboilerplate.util.NetworkUtils
+import com.agit.lutluthfi.mvpboilerplate.CommonUtils
+import com.agit.lutluthfi.mvpboilerplate.NetworkUtils
 
 abstract class PlateBaseBottomDialog : BottomSheetDialogFragment(), IPlateBaseView {
 

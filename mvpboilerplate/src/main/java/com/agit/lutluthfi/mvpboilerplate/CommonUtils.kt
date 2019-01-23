@@ -1,4 +1,4 @@
-package com.agit.lutluthfi.mvpboilerplate.util
+package com.agit.lutluthfi.mvpboilerplate
 
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
@@ -10,8 +10,6 @@ import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
 import android.util.Log
-
-import com.agit.lutluthfi.mvpboilerplate.R
 
 import java.text.SimpleDateFormat
 import java.util.Date

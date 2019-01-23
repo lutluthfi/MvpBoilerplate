@@ -1,4 +1,4 @@
-package com.agit.lutluthfi.mvpboilerplate.util
+package com.agit.lutluthfi.mvpboilerplate
 
 import android.app.Activity
 import android.content.Context

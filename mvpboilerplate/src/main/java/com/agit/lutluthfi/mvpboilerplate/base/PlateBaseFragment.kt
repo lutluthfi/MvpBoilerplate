@@ -9,8 +9,8 @@ import android.view.View
 import android.widget.Toast
 
 import com.agit.lutluthfi.mvpboilerplate.R
-import com.agit.lutluthfi.mvpboilerplate.util.CommonUtils
-import com.agit.lutluthfi.mvpboilerplate.util.NetworkUtils
+import com.agit.lutluthfi.mvpboilerplate.CommonUtils
+import com.agit.lutluthfi.mvpboilerplate.NetworkUtils
 
 abstract class PlateBaseFragment : Fragment(), IPlateBaseView {
 
