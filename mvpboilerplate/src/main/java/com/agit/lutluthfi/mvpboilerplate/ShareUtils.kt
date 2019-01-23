@@ -8,14 +8,12 @@ object ShareUtils {
     fun shareTextViaApplication(context: Context?,
                                 title: String = "Share via",
                                 content: String = "") {
-        val intent = Intent()
-        context?.let {
-            with(intent) {
+        context?.run {
+            startActivity(Intent.createChooser(Intent().apply {
                 type = "text/plain"
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, content)
-                it.startActivity(Intent.createChooser(this, title))
-            }
+            }, title))
         }
     }
 
@@ -23,16 +21,14 @@ object ShareUtils {
                           email: String = "",
                           subject: String = "Hello there",
                           content: String = "") {
-        val intent = Intent()
-        context?.let {
-            with(intent) {
+        context?.run {
+            startActivity(Intent().apply {
                 action = Intent.ACTION_SEND
                 type = "message/rfc822"
                 putExtra(Intent.EXTRA_EMAIL, email)
                 putExtra(Intent.EXTRA_SUBJECT, subject)
                 putExtra(Intent.EXTRA_TEXT, content)
-                it.startActivity(this)
-            }
+            })
         }
     }
 }// This class is not publicly instantiate
