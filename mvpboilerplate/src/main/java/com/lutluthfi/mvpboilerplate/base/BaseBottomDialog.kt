@@ -10,14 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.lutluthfi.mvpboilerplate.LoadingUtils
 
 import com.lutluthfi.mvpboilerplate.NetworkUtils
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
 abstract class BaseBottomDialog : BottomSheetDialogFragment(), IBaseView {
-
-    private var progressDialog: ProgressDialog? = null
 
     var fragmentContext: Context? = null
         private set
@@ -79,6 +78,18 @@ abstract class BaseBottomDialog : BottomSheetDialogFragment(), IBaseView {
     }
 
     override fun showLoading(show: Boolean) {
+        var loading: ProgressDialog? = null
+        when (show) {
+            true -> {
+                activity?.runOnUiThread {
+                    loading?.run { if (isShowing) cancel() }
+                            ?: run { loading = LoadingUtils.showLoadingDialog(requireContext()) }
+                }
+            }
+            false -> {
+                activity?.runOnUiThread { loading?.run { if (isShowing) cancel() } }
+            }
+        }
     }
 
     override fun toastMessage(resId: Int) {

@@ -1,9 +1,11 @@
 package com.lutluthfi.mvpboilerplate.base
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
+import com.lutluthfi.mvpboilerplate.LoadingUtils
 import com.lutluthfi.mvpboilerplate.NetworkUtils
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
@@ -49,6 +51,18 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
     }
 
     override fun showLoading(show: Boolean) {
+        var loading: ProgressDialog? = null
+        when (show) {
+            true -> {
+                runOnUiThread {
+                    loading?.run { if (isShowing) cancel() }
+                            ?: run { loading = LoadingUtils.showLoadingDialog(this) }
+                }
+            }
+            false -> {
+                runOnUiThread { loading?.run { if (isShowing) cancel() } }
+            }
+        }
     }
 
     override fun toastMessage(resId: Int) {
