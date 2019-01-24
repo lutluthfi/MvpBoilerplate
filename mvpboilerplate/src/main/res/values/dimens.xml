@@ -3,6 +3,8 @@
     <!-- border -->
     <dimen name="border_small">@dimen/_2sdp</dimen>
     <dimen name="border_medium">@dimen/_4sdp</dimen>
+    <!-- character counts -->
+    <dimen name="character_medium">255</dimen>
     <!-- corner -->
     <dimen name="corner_small">@dimen/_2sdp</dimen>
     <dimen name="corner_medium">@dimen/_4sdp</dimen>

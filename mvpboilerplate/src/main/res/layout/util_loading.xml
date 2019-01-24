@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/margin_large_extra"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:cardCornerRadius="@dimen/corner_large"
+        app:cardElevation="@dimen/elevation_small">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/padding_medium_extra"
+            android:paddingTop="@dimen/margin_medium"
+            android:paddingRight="@dimen/padding_medium_extra">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/view_util_loading_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:indicatorColor="@color/colorBlack"
+                app:indicatorName="BallPulseIndicator"
+                app:maxHeight="@dimen/_32sdp"
+                app:minHeight="@dimen/_32sdp" />
+
+            <TextView
+                android:id="@+id/text_util_loading_message"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_medium_extra"
+                android:ellipsize="end"
+                android:maxLength="@dimen/character_medium"
+                android:maxLines="2"
+                android:text="Some text here" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
