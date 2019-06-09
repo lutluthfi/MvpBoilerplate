@@ -32,14 +32,14 @@ android {
 }
 
 ext {
-    circle_image_version = '2.2.0'
+    circle_image_version = '3.0.0'
     intuit_version = '1.0.6'
-    kotlin_version = '1.3.11'
+    kotlin_version = '1.3.31'
     loading_indicator_version = '2.1.3'
     okhttp_version = '3.10.0'
     picasso_version = '2.71828'
-    rxjava_version = '2.1.17'
-    rxandroid_version = '2.1.0'
+    rxjava_version = '2.2.9'
+    rxandroid_version = '2.1.1'
     retrofit_version = '2.4.0'
     support_library_version = '28.0.0'
 }
@@ -53,6 +53,7 @@ dependencies {
     api "com.android.support:recyclerview-v7:$support_library_version"
     api "com.android.support:animated-vector-drawable:$support_library_version"
     api "com.android.support:exifinterface:$support_library_version"
+    api 'com.android.support:multidex:1.0.3'
     // Dagger
     api 'javax.inject:javax.inject:1'
     compileOnly 'javax.annotation:jsr250-api:1.0'
